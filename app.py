@@ -76,12 +76,6 @@ if customer_id != None :
     subheader_text = '''Here are the customer data'''
     st.markdown(f"<h5 style='text-align: center;'>{subheader_text}</h5>", unsafe_allow_html=True)
     st.dataframe(df.iloc[customer_id])
-
-    # INTERPRETABILITES
-    if st.button("Explain Results"):
-        with st.spinner('Calculating...'):
-            html = interpretability_list[customer_id].as_html()
-            components.html(html, height=800)
     
     
 # Response
@@ -97,6 +91,12 @@ with st.sidebar:
         st.markdown(t, unsafe_allow_html=True)
         st.write("\n")
         st.write("With a probability of : {}%".format(response["probabilite"]*100))
+        
+    # INTERPRETABILITES
+    if st.button("Explain Results"):
+        with st.spinner('Calculating...'):
+            html = interpretability_list[customer_id].as_html()
+            components.html(html, height=800)
     
 
 # PLOT DES VARIABLES DOMINANTES DU CLIENT
