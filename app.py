@@ -84,12 +84,13 @@ st.pyplot(fig)
 # PIE CHART SOLVABILITY
 # Stating graphical parameters
 COLOR_BR_r = ['#00CC96', '#EF553B'] #['dodgerblue', 'indianred']
-col1 = st.columns(1)
 # adapting message wether client's pos or neg
 if response["solvabilite"] == 0 :
-    col1.subheader(f"**Successful payment probability.**")
+    subheader_text = '''**Successful payment probability.**'''
 else:
-    col1.subheader(f"**Failure payment probability.**")
+    subheader_text = '''**Failure payment probability.**'''
+    
+st.markdown(f"<h5 style='text-align: center;'>{subheader_text}</h5>", unsafe_allow_html=True)
 # plotting pie plot for proba, finding good h x w was a bit tough
 
 fig = px.pie(values=[response["probabilite"]*100, 100 - (response["probabilite"]*100)],
