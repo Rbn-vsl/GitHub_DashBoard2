@@ -13,6 +13,13 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 local_css("style.css")
 
+# Side Bar
+sb = st.sidebar
+cwd = os.getcwd() # Get the current working directory
+image = os.path.join(cwd, "streamlite_logo.png")
+sb.image(image, width=300)
+# sb.image('https://pixabay.com/fr/images/download/brain-6215574_640.jpg', width=300)
+
 
 # Build app
 title_text = 'Dashboard Credit Scoring'
