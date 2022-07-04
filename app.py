@@ -18,7 +18,6 @@ title_text = 'Dashboard Credit Scoring'
 subheader_text = '''Etude de solvabilité du client'''
 
 # Title
-st.title("**Dashboard Credit Scoring**")
 st.markdown(f"<h2 style='text-align: center;'><b>{title_text}</b></h2>", unsafe_allow_html=True)
 st.markdown(f"<h5 style='text-align: center;'>{subheader_text}</h5>", unsafe_allow_html=True)
 st.text("")
@@ -63,9 +62,10 @@ if customer_id != None :
     # adapting message wether client's pos or neg
     if response["solvabilite"] == 0 :
         subheader_text = '''Successful payment probability !'''
+        st.markdown(f"<h5 style='text-align: center;color: green;'>{subheader_text}</h5>", unsafe_allow_html=True)
     else:
         subheader_text = '''**Failure payment probability.**'''
-    st.markdown(f"<h5 style='text-align: center;'>{subheader_text}</h5>", unsafe_allow_html=True)
+        st.markdown(f"<h5 style='text-align: center;color: red;'>{subheader_text}</h5>", unsafe_allow_html=True)
     # plotting pie plot for proba, finding good h x w was a bit tough
     y_val = [response["probabilite"]*100, 100 - response["probabilite"]*100]
     fig = px.pie(values=y_val, names=[0,1], color=[0,1], color_discrete_sequence=COLOR_BR_r, width=230, height=230)
