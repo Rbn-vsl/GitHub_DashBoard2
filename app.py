@@ -81,19 +81,22 @@ ax.set_title("Distribution {}".format(feature_selected))
 st.pyplot(fig)
 
 
+st.subheader(response["probabilite"]*100)
+
 # PIE CHART SOLVABILITY
 # Stating graphical parameters
 COLOR_BR_r = ['#00CC96', '#EF553B'] #['dodgerblue', 'indianred']
 # adapting message wether client's pos or neg
 if response["solvabilite"] == 0 :
-    subheader_text = '''**Successful payment probability.**'''
+    subheader_text = '''Successful payment probability.'''
 else:
     subheader_text = '''**Failure payment probability.**'''
     
 st.markdown(f"<h5 style='text-align: center;'>{subheader_text}</h5>", unsafe_allow_html=True)
 # plotting pie plot for proba, finding good h x w was a bit tough
-
-fig = px.pie(values=[response["probabilite"]*100, 100 - (response["probabilite"]*100)],
-             names=[0,1], color=[0,1], color_discrete_sequence=COLOR_BR_r, width=230, height=230)
+# y_val = list((response["probabilite"]*100).item(), ((1 - response["probabilite"])*100).item())
+y_val = [round((response["probabilite"]*100).item(), 2),
+        round(((1 - response["probabilite"])*100).item(), 2)]
+fig = px.pie(values=y_val, names=[0,1], color=[0,1], color_discrete_sequence=COLOR_BR_r, width=230, height=230)
 fig.update_layout(margin=dict(l=0, r=0, t=30, b=0))
 col1.plotly_chart(fig, use_container_width=True)
