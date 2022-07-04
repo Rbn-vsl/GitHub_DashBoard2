@@ -95,7 +95,7 @@ with st.sidebar:
         explainer = st.checkbox('Explain results')
 
 if explainer:
-     with st.spinner('Calculating...'):
+    with st.spinner('Calculating...'):
         html = interpretability_list[customer_id].as_html()
         components.html(html, height=800)
         
