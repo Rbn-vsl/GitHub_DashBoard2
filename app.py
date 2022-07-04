@@ -66,6 +66,25 @@ if customer_id != None :
             html = interpretability_list[customer_id].as_html()
             components.html(html, height=800)
 
+# PIE CHART SOLVABILITY
+# Stating graphical parameters
+COLOR_BR_r = ['#00CC96', '#EF553B'] #['dodgerblue', 'indianred']
+# adapting message wether client's pos or neg
+if response["solvabilite"] == 0 :
+    subheader_text = '''Successful payment probability.'''
+else:
+    subheader_text = '''**Failure payment probability.**'''
+st.markdown(f"<h5 style='text-align: center;'>{subheader_text}</h5>", unsafe_allow_html=True)
+
+# plotting pie plot for proba, finding good h x w was a bit tough
+# y_val = list((response["probabilite"]*100).item(), ((1 - response["probabilite"])*100).item())
+y_val = [round((response["probabilite"]*100).item(), 2),
+        round(((1 - response["probabilite"])*100).item(), 2)]
+# y_val =[0.3,0.7]
+fig = px.pie(values=y_val, names=[0,1], color=[0,1], color_discrete_sequence=COLOR_BR_r, width=230, height=230)
+fig.update_layout(margin=dict(l=0, r=0, t=30, b=0))
+st.plotly_chart(fig)
+
 st.subheader("Below you can situate customer by plotting distribution.")
 feature_selected = st.selectbox('Select a feature to plot', df.columns)
 st.write('You selected:', feature_selected)
@@ -80,25 +99,3 @@ for p in ax.patches :
         p.set_color('crimson')
 ax.set_title("Distribution {}".format(feature_selected))
 st.pyplot(fig)
-
-
-st.subheader(response["probabilite"]*100)
-
-# PIE CHART SOLVABILITY
-# Stating graphical parameters
-COLOR_BR_r = ['#00CC96', '#EF553B'] #['dodgerblue', 'indianred']
-# adapting message wether client's pos or neg
-if response["solvabilite"] == 0 :
-    subheader_text = '''Successful payment probability.'''
-else:
-    subheader_text = '''**Failure payment probability.**'''
-    
-st.markdown(f"<h5 style='text-align: center;'>{subheader_text}</h5>", unsafe_allow_html=True)
-# plotting pie plot for proba, finding good h x w was a bit tough
-# y_val = list((response["probabilite"]*100).item(), ((1 - response["probabilite"])*100).item())
-# y_val = [round((response["probabilite"]*100).item(), 2),
-#         round(((1 - response["probabilite"])*100).item(), 2)]
-y_val =[0.3,0.7]
-fig = px.pie(values=y_val, names=[0,1], color=[0,1], color_discrete_sequence=COLOR_BR_r, width=230, height=230)
-fig.update_layout(margin=dict(l=0, r=0, t=30, b=0))
-st.plotly_chart(fig)
