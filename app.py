@@ -16,9 +16,10 @@ local_css("style.css")
 # Side Bar
 sb = st.sidebar
 cwd = os.getcwd() # Get the current working directory
-image = os.path.join(cwd, "streamlite_logo.png")
-sb.image(image, width=300)
-# sb.image('https://pixabay.com/fr/images/download/brain-6215574_640.jpg', width=300)
+streamlite_image = os.path.join(cwd, "streamlite_logo.png")
+sb.image(streamlite_image, width=300)
+boite_image = os.path.join(cwd, "boite_logo.png")
+sb.image(boite_image, width=300)
 
 
 # Build app
