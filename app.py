@@ -37,6 +37,11 @@ cwd = os.getcwd()
 name = "X_test_32.pickle"
 df = joblib.load(os.path.join(cwd, name))
 
+# Dataframe avec prediction
+solvability_vector = model.predict(df)
+probabilty_vector = model.predict_proba(df)[:, 0]
+df["Solvability"] = solvability_vector
+df["Probability"] = probabilty_vector
 
 # PREDICTION
 # using model from api
@@ -63,9 +68,7 @@ if customer_id != None :
     fig.update_layout(margin=dict(l=0, r=30, t=30, b=0))
     st.plotly_chart(fig)
     
-    # AFFICHAGE DES DONNES CLIENT
-    st.dataframe(df.iloc[customer_id])
-    
+    # Response
     if response["solvabilite"] == 0:
         # st.write("The customer is solvent, with a probability of : {}".format(response["probabilite"]))
         t = "<div> <span class='highlight green'> The customer is solvent </span></div>"
@@ -77,6 +80,11 @@ if customer_id != None :
         st.markdown(t, unsafe_allow_html=True)
         st.write("\n")
         st.write("With a probability of : {}%".format(response["probabilite"]*100))
+    
+    # AFFICHAGE DES DONNES CLIENT
+    subheader_text = '''Here are the customer data'''
+    st.markdown(f"<h5 style='text-align: center;'>{subheader_text}</h5>", unsafe_allow_html=True)
+    st.dataframe(df.iloc[customer_id])
         
     # INTERPRETABILITES
     if st.button("Explain Results"):
@@ -85,7 +93,23 @@ if customer_id != None :
             components.html(html, height=800)
 
 
-
+st.subheader("Distribution of the 3 variables with a positive contribution to the loan agreement .")
+# fig 1 
+fig = px.histogram(df, x=positive_feature_list[0], color="Solvability", 
+                   title='Distribution of {}'.format(positive_feature_list[0]))
+fig.update_layout(bargap=0.2)
+st.plotly_chart(fig, use_container_width=True)
+# fig 2
+fig = px.histogram(df, x=positive_feature_list[1], color="Solvability",
+                  title='Distribution of {}'.format(positive_feature_list[1]))
+fig.update_layout(bargap=0.2)
+st.plotly_chart(fig, use_container_width=True)
+# fig 3
+fig = px.histogram(df, x=positive_feature_list[2], color="Solvability",
+                  title='Distribution of {}'.format(positive_feature_list[2]))
+fig.update_layout(bargap=0.2)
+st.plotly_chart(fig, use_container_width=True)         
+            
 st.subheader("Below you can situate customer by plotting distribution.")
 feature_selected = st.selectbox('Select a feature to plot', df.columns)
 st.write('You selected:', feature_selected)
