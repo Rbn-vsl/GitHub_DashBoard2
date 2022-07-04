@@ -68,7 +68,7 @@ if customer_id != None :
     # plotting pie plot for proba, finding good h x w was a bit tough
     y_val = [response["probabilite"]*100, 100 - response["probabilite"]*100]
     fig = px.pie(values=y_val, names=[0,1], color=[0,1], color_discrete_sequence=COLOR_BR_r, width=230, height=230)
-    fig.update_layout(autosize=False,width=800,height=800)
+    fig.update_layout(autosize=False,width=400,height=400)
     st.plotly_chart(fig)
     
     # AFFICHAGE DES DONNES CLIENT
