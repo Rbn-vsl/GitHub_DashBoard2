@@ -27,19 +27,6 @@ cwd = os.getcwd() # Get the current working directory
 name = "interpretability_list.joblib"
 interpretability_list = joblib.load(os.path.join(cwd, name))
 
-# Side Bar
-with st.sidebar:
-    streamlite_image = os.path.join(cwd, "streamlite_logo.png")
-    st.image(streamlite_image, width=300)
-    boite_image = os.path.join(cwd, "boite_logo.png")
-    st.image(boite_image, width=300)
-
-    # SELECTION DU CUSTOMER_ID
-    customer_id_list = np.arange(len(interpretability_list))
-    customer_id = st.selectbox('Please select the customer_ID to analyse :', customer_id_list)
-    st.write('You selected:', customer_id)
-    print("User selected the customer_id {}".format(customer_id))
-
 # AFFICHAGE DU CLIENT
 name = "X_test_32.pickle"
 df = joblib.load(os.path.join(cwd, name))
@@ -70,6 +57,31 @@ if customer_id != None :
     fig.update_layout(margin=dict(l=0, r=30, t=30, b=0))
     st.plotly_chart(fig)
     
+    # AFFICHAGE DES DONNES CLIENT
+    subheader_text = '''Here are the customer data'''
+    st.markdown(f"<h5 style='text-align: center;'>{subheader_text}</h5>", unsafe_allow_html=True)
+    st.dataframe(df.iloc[customer_id])
+
+    # INTERPRETABILITES
+    if st.button("Explain Results"):
+        with st.spinner('Calculating...'):
+            html = interpretability_list[customer_id].as_html()
+            components.html(html, height=800)
+    
+    
+# Side Bar
+with st.sidebar:
+    streamlite_image = os.path.join(cwd, "streamlite_logo.png")
+    st.image(streamlite_image, width=300)
+    boite_image = os.path.join(cwd, "boite_logo.png")
+    st.image(boite_image, width=300)
+
+    # SELECTION DU CUSTOMER_ID
+    customer_id_list = np.arange(len(interpretability_list))
+    customer_id = st.selectbox('Please select the customer_ID to analyse :', customer_id_list)
+    st.write('You selected:', customer_id)
+    print("User selected the customer_id {}".format(customer_id))
+    
     # Response
     if response["solvabilite"] == 0:
         # st.write("The customer is solvent, with a probability of : {}".format(response["probabilite"]))
@@ -83,16 +95,7 @@ if customer_id != None :
         st.write("\n")
         st.write("With a probability of : {}%".format(response["probabilite"]*100))
     
-    # AFFICHAGE DES DONNES CLIENT
-    subheader_text = '''Here are the customer data'''
-    st.markdown(f"<h5 style='text-align: center;'>{subheader_text}</h5>", unsafe_allow_html=True)
-    st.dataframe(df.iloc[customer_id])
 
-    # INTERPRETABILITES
-    if st.button("Explain Results"):
-        with st.spinner('Calculating...'):
-            html = interpretability_list[customer_id].as_html()
-            components.html(html, height=800)
 
 # PLOT DES VARIABLES DOMINANTES DU CLIENT
 # st.subheader("Distribution of the 2 variables with most positive contribution to the loan agreement .")
