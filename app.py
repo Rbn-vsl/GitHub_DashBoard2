@@ -31,7 +31,6 @@ interpretability_list = joblib.load(os.path.join(cwd, name))
 name = "X_test_32.pickle"
 df = joblib.load(os.path.join(cwd, name))
 
-
 # Side Bar
 with st.sidebar:
     streamlite_image = os.path.join(cwd, "streamlite_logo.png")
@@ -73,10 +72,10 @@ if customer_id != None :
     st.plotly_chart(fig)
     
     # AFFICHAGE DES DONNES CLIENT
-    subheader_text = '''Here are the customer data'''
+    subheader_text = '''Here are the customer data in dataframe format'''
     st.markdown(f"<h5 style='text-align: center;'>{subheader_text}</h5>", unsafe_allow_html=True)
     st.dataframe(df.iloc[customer_id])
-    
+   
     
 # Response
 with st.sidebar:   
@@ -109,9 +108,12 @@ st.subheader("Below you can situate customer by plotting distribution.")
 feature_selected = st.selectbox('Select a feature to plot', df.columns)
 st.write('You selected:', feature_selected)
 
+distribution_size = st.slider('Select a distribution size', 1, df.shape[0], 10)
+st.write("Distribution over ", distribution_size, 'customer')
+
 # PLOTTING
 fig, ax = plt.subplots()
-sns.histplot(data=df, x=feature_selected)
+sns.histplot(data=df[:distribution_size], x=feature_selected)
 value2highlight = df.iloc[customer_id][feature_selected]
 x_list = [(abs(value2highlight - p.get_x())) for p in ax.patches]
 for p in ax.patches :
