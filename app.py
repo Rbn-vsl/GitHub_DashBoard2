@@ -83,8 +83,8 @@ if customer_id != None :
             components.html(html, height=800)
     
     
- # Response
- with st.sidebar:   
+# Response
+with st.sidebar:   
     if response["solvabilite"] == 0:
         # st.write("The customer is solvent, with a probability of : {}".format(response["probabilite"]))
         t = "<div> <span class='highlight green'> The customer is solvent </span></div>"
