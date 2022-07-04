@@ -29,11 +29,10 @@ interpretability_list = joblib.load(os.path.join(cwd, name))
 
 # Side Bar
 with st.sidebar:
-    cwd = os.getcwd() # Get the current working directory
     streamlite_image = os.path.join(cwd, "streamlite_logo.png")
-    sb.image(streamlite_image, width=300)
+    st.image(streamlite_image, width=300)
     boite_image = os.path.join(cwd, "boite_logo.png")
-    sb.image(boite_image, width=300)
+    st.image(boite_image, width=300)
 
     # SELECTION DU CUSTOMER_ID
     customer_id_list = np.arange(len(interpretability_list))
@@ -41,9 +40,7 @@ with st.sidebar:
     st.write('You selected:', customer_id)
     print("User selected the customer_id {}".format(customer_id))
 
-
 # AFFICHAGE DU CLIENT
-cwd = os.getcwd()
 name = "X_test_32.pickle"
 df = joblib.load(os.path.join(cwd, name))
 
