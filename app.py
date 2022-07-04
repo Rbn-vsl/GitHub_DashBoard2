@@ -92,12 +92,33 @@ with st.sidebar:
         st.write("\n")
         st.write("With a probability of : {}%".format(response["probabilite"]*100))
         
-    # INTERPRETABILITES
-    if st.button("Explain Results"):
-        with st.spinner('Calculating...'):
-            html = interpretability_list[customer_id].as_html()
-            components.html(html, height=800)
-    
+        explainer = st.checkbox('Explain results')
+
+if agree:
+     with st.spinner('Calculating...'):
+        html = interpretability_list[customer_id].as_html()
+        components.html(html, height=800)
+        
+# # INTERPRETABILITES
+# if st.button("Explain Results"):
+#     with st.spinner('Calculating...'):
+#         html = interpretability_list[customer_id].as_html()
+#         components.html(html, height=800)
+  
+st.subheader("Below you can situate customer by plotting distribution.")
+feature_selected = st.selectbox('Select a feature to plot', df.columns)
+st.write('You selected:', feature_selected)
+
+# PLOTTING
+fig, ax = plt.subplots()
+sns.histplot(data=df, x=feature_selected)
+value2highlight = df.iloc[customer_id][feature_selected]
+x_list = [(abs(value2highlight - p.get_x())) for p in ax.patches]
+for p in ax.patches :
+    if abs(value2highlight - p.get_x()) == min(x_list):
+        p.set_color('crimson')
+ax.set_title("Distribution {}".format(feature_selected))
+st.pyplot(fig)
 
 # PLOT DES VARIABLES DOMINANTES DU CLIENT
 # st.subheader("Distribution of the 2 variables with most positive contribution to the loan agreement .")
@@ -130,17 +151,4 @@ with st.sidebar:
 
 # *********************************************************************************************************************
 
-st.subheader("Below you can situate customer by plotting distribution.")
-feature_selected = st.selectbox('Select a feature to plot', df.columns)
-st.write('You selected:', feature_selected)
 
-# PLOTTING
-fig, ax = plt.subplots()
-sns.histplot(data=df, x=feature_selected)
-value2highlight = df.iloc[customer_id][feature_selected]
-x_list = [(abs(value2highlight - p.get_x())) for p in ax.patches]
-for p in ax.patches :
-    if abs(value2highlight - p.get_x()) == min(x_list):
-        p.set_color('crimson')
-ax.set_title("Distribution {}".format(feature_selected))
-st.pyplot(fig)
