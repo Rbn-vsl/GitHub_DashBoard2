@@ -13,22 +13,6 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 local_css("style.css")
 
-# Side Bar
-with st.sidebar:
-    st.[element_name]
-    cwd = os.getcwd() # Get the current working directory
-    streamlite_image = os.path.join(cwd, "streamlite_logo.png")
-    sb.image(streamlite_image, width=300)
-    boite_image = os.path.join(cwd, "boite_logo.png")
-    sb.image(boite_image, width=300)
-
-    # SELECTION DU CUSTOMER_ID
-    customer_id_list = np.arange(len(interpretability_list))
-    customer_id = st.selectbox('Please select the customer_ID to analyse :', customer_id_list)
-    st.write('You selected:', customer_id)
-    print("User selected the customer_id {}".format(customer_id))
-
-
 # Build app
 title_text = 'Dashboard Credit Scoring'
 subheader_text = '''Etude de solvabilité du client'''
@@ -43,6 +27,19 @@ cwd = os.getcwd() # Get the current working directory
 name = "interpretability_list.joblib"
 interpretability_list = joblib.load(os.path.join(cwd, name))
 
+# Side Bar
+with st.sidebar:
+    cwd = os.getcwd() # Get the current working directory
+    streamlite_image = os.path.join(cwd, "streamlite_logo.png")
+    sb.image(streamlite_image, width=300)
+    boite_image = os.path.join(cwd, "boite_logo.png")
+    sb.image(boite_image, width=300)
+
+    # SELECTION DU CUSTOMER_ID
+    customer_id_list = np.arange(len(interpretability_list))
+    customer_id = st.selectbox('Please select the customer_ID to analyse :', customer_id_list)
+    st.write('You selected:', customer_id)
+    print("User selected the customer_id {}".format(customer_id))
 
 
 # AFFICHAGE DU CLIENT
