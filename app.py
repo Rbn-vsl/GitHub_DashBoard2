@@ -140,7 +140,7 @@ st.pyplot(fig)
 # positive_feature_list = list(df.iloc[:, positive_contribution_index_list].columns)
 # negative_feature_list = list(df.iloc[:, negative_contribution_index_list].columns)
 # fig 1 
-fig = px.histogram(df[:distribution_size], x=feature_selected,color="Solvability", title='Distribution of {}'.format(feature_selected)
+fig = px.histogram(df[:distribution_size], x=feature_selected,color="Solvability", title='Distribution of {}'.format(feature_selected))
 fig.update_layout(bargap=0.2)
 st.plotly_chart(fig, use_container_width=True)
 # # fig 2
