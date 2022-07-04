@@ -92,7 +92,8 @@ with st.sidebar:
         st.write("With a probability of : {}%".format(response["probabilite"]*100))
         
     explainer = st.checkbox('Explain results')
-
+    
+import xgboost
 vision = joblib.load(os.path.join(cwd, "xgbClassifier_go.sav"))
 solvability_vector = model.predict(df)
 probabilty_vector = model.predict_proba(df)[:, 0]
