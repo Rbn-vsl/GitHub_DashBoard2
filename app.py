@@ -100,4 +100,4 @@ st.markdown(f"<h5 style='text-align: center;'>{subheader_text}</h5>", unsafe_all
 y_val =[0.3,0.7]
 fig = px.pie(values=y_val, names=[0,1], color=[0,1], color_discrete_sequence=COLOR_BR_r, width=230, height=230)
 fig.update_layout(margin=dict(l=0, r=0, t=30, b=0))
-col1.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig, use_container_width=True)
