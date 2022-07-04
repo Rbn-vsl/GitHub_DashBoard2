@@ -93,12 +93,12 @@ with st.sidebar:
         
     explainer = st.checkbox('Explain results')
     
-import xgboost
-vision = joblib.load(os.path.join(cwd, "xgbClassifier_go.sav"))
-solvability_vector = model.predict(df)
-probabilty_vector = model.predict_proba(df)[:, 0]
-df["Solvability"] = solvability_vector
-df["Probability"] = probabilty_vector
+# import xgboost
+# vision = joblib.load(os.path.join(cwd, "xgbClassifier_go.sav"))
+# solvability_vector = model.predict(df)
+# probabilty_vector = model.predict_proba(df)[:, 0]
+# df["Solvability"] = solvability_vector
+# df["Probability"] = probabilty_vector
     
 if explainer:
     with st.spinner('Calculating...'):
@@ -141,9 +141,9 @@ st.pyplot(fig)
 # positive_feature_list = list(df.iloc[:, positive_contribution_index_list].columns)
 # negative_feature_list = list(df.iloc[:, negative_contribution_index_list].columns)
 # fig 1 
-fig = px.histogram(df[:distribution_size], x=feature_selected,color="Solvability", title='Distribution of {}'.format(feature_selected))
-fig.update_layout(bargap=0.2)
-st.plotly_chart(fig, use_container_width=True)
+# fig = px.histogram(df[:distribution_size], x=feature_selected,color="Solvability", title='Distribution of {}'.format(feature_selected))
+# fig.update_layout(bargap=0.2)
+# st.plotly_chart(fig, use_container_width=True)
 # # fig 2
 # fig = px.histogram(df, x=positive_feature_list[1], title='Distribution of {}'.format(positive_feature_list[1]))
 # fig.update_layout(bargap=0.2)
