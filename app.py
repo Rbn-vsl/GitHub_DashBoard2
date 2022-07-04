@@ -130,7 +130,7 @@ ax.set_title("Distribution {}".format(feature_selected))
 st.pyplot(fig)
 
 # PLOT DES VARIABLES DOMINANTES DU CLIENT
-# st.subheader("Distribution of the 2 variables with most positive contribution to the loan agreement .")
+st.subheader("Plotly interactive .")
 # positive_contribution_index_list = []
 # negative_contribution_index_list = []
 # for i in range(len(interpretability_list[customer_id].as_map()[1])):
@@ -141,9 +141,9 @@ st.pyplot(fig)
 # positive_feature_list = list(df.iloc[:, positive_contribution_index_list].columns)
 # negative_feature_list = list(df.iloc[:, negative_contribution_index_list].columns)
 # fig 1 
-# fig = px.histogram(df[:distribution_size], x=feature_selected,color="Solvability", title='Distribution of {}'.format(feature_selected))
-# fig.update_layout(bargap=0.2)
-# st.plotly_chart(fig, use_container_width=True)
+fig = px.histogram(df[:distribution_size], x=feature_selected, title='Distribution of {}'.format(feature_selected))
+fig.update_layout(bargap=0.2)
+st.plotly_chart(fig, use_container_width=True)
 # # fig 2
 # fig = px.histogram(df, x=positive_feature_list[1], title='Distribution of {}'.format(positive_feature_list[1]))
 # fig.update_layout(bargap=0.2)
