@@ -79,3 +79,20 @@ for p in ax.patches :
         p.set_color('crimson')
 ax.set_title("Distribution {}".format(feature_selected))
 st.pyplot(fig)
+
+
+# PIE CHART SOLVABILITY
+# Stating graphical parameters
+COLOR_BR_r = ['#00CC96', '#EF553B'] #['dodgerblue', 'indianred']
+col1 = st.columns(1)
+# adapting message wether client's pos or neg
+if response["solvabilite"] == 0
+    col1.subheader(f"**Successful payment probability.**")
+else:
+    col1.subheader(f"**Failure payment probability.**")
+# plotting pie plot for proba, finding good h x w was a bit tough
+
+fig = px.pie(values=[response["probabilite"]*100, 100 - (response["probabilite"]*100)],
+             names=[0,1], color=[0,1], color_discrete_sequence=COLOR_BR_r, width=230, height=230)
+fig.update_layout(margin=dict(l=0, r=0, t=30, b=0))
+col1.plotly_chart(fig, use_container_width=True)
