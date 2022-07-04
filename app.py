@@ -86,7 +86,7 @@ st.pyplot(fig)
 COLOR_BR_r = ['#00CC96', '#EF553B'] #['dodgerblue', 'indianred']
 col1 = st.columns(1)
 # adapting message wether client's pos or neg
-if response["solvabilite"] == 0
+if response["solvabilite"] == 0 :
     col1.subheader(f"**Successful payment probability.**")
 else:
     col1.subheader(f"**Failure payment probability.**")
