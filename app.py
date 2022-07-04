@@ -36,7 +36,7 @@ print("User selected the customer_id {}".format(customer_id))
 cwd = os.getcwd()
 name = "X_test_32.pickle"
 df = joblib.load(os.path.join(cwd, name))
-st.dataframe(df.iloc[customer_id])
+
 
 # PREDICTION
 # using model from api
@@ -62,6 +62,9 @@ if customer_id != None :
     fig = px.pie(values=y_val, names=[0,1], color=[0,1], color_discrete_sequence=COLOR_BR_r, width=230, height=230)
     fig.update_layout(margin=dict(l=0, r=30, t=30, b=0))
     st.plotly_chart(fig)
+    
+    # AFFICHAGE DES DONNES CLIENT
+    st.dataframe(df.iloc[customer_id])
     
     if response["solvabilite"] == 0:
         # st.write("The customer is solvent, with a probability of : {}".format(response["probabilite"]))
