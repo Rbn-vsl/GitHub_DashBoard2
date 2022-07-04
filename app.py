@@ -111,7 +111,9 @@ if explainer:
 #         html = interpretability_list[customer_id].as_html()
 #         components.html(html, height=800)
   
-st.subheader("Below you can situate customer by plotting distribution.")
+    
+subheader_text = "Below you can situate customer by plotting distribution"
+st.markdown(f"<h5 style='text-align: center;'>{subheader_text}</h5>", unsafe_allow_html=True)
 feature_selected = st.selectbox('Select a feature to plot', df.columns)
 st.write('You selected:', feature_selected)
 
@@ -130,7 +132,11 @@ ax.set_title("Distribution {}".format(feature_selected))
 st.pyplot(fig)
 
 # PLOT DES VARIABLES DOMINANTES DU CLIENT
-st.subheader("Plotly interactive .")
+subheader_text = "Interactive plot"
+st.markdown(f"<h5 style='text-align: center;'>{subheader_text}</h5>", unsafe_allow_html=True)
+fig = px.histogram(df[:distribution_size], x=feature_selected, title='Distribution of {}'.format(feature_selected))
+fig.update_layout(bargap=0.2)
+st.plotly_chart(fig, use_container_width=True)
 # positive_contribution_index_list = []
 # negative_contribution_index_list = []
 # for i in range(len(interpretability_list[customer_id].as_map()[1])):
@@ -141,9 +147,7 @@ st.subheader("Plotly interactive .")
 # positive_feature_list = list(df.iloc[:, positive_contribution_index_list].columns)
 # negative_feature_list = list(df.iloc[:, negative_contribution_index_list].columns)
 # fig 1 
-fig = px.histogram(df[:distribution_size], x=feature_selected, title='Distribution of {}'.format(feature_selected))
-fig.update_layout(bargap=0.2)
-st.plotly_chart(fig, use_container_width=True)
+
 # # fig 2
 # fig = px.histogram(df, x=positive_feature_list[1], title='Distribution of {}'.format(positive_feature_list[1]))
 # fig.update_layout(bargap=0.2)
