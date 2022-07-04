@@ -48,18 +48,6 @@ if customer_id != None :
     # st.write(response["probabilite"])
     print("Probability {} \n Solvability {}".format(response["probabilite"], response["solvabilite"]))
 
-    if response["solvabilite"] == 0:
-        # st.write("The customer is solvent, with a probability of : {}".format(response["probabilite"]))
-        t = "<div> <span class='highlight green'> The customer is solvent </span></div>"
-        st.markdown(t, unsafe_allow_html=True)
-        st.write("\n")
-        st.write("With a probability of : {}%".format(response["probabilite"]*100))
-    else:
-        t = "<div> <span class='highlight red'> The customer is not solvent </span></div>"
-        st.markdown(t, unsafe_allow_html=True)
-        st.write("\n")
-        st.write("With a probability of : {}%".format(response["probabilite"]*100))
-
     # PIE CHART SOLVABILITY
     # Stating graphical parameters
     COLOR_BR_r = ['#00CC96', '#EF553B'] #['dodgerblue', 'indianred']
@@ -74,6 +62,18 @@ if customer_id != None :
     fig = px.pie(values=y_val, names=[0,1], color=[0,1], color_discrete_sequence=COLOR_BR_r, width=230, height=230)
     fig.update_layout(margin=dict(l=0, r=30, t=30, b=0))
     st.plotly_chart(fig)
+    
+    if response["solvabilite"] == 0:
+        # st.write("The customer is solvent, with a probability of : {}".format(response["probabilite"]))
+        t = "<div> <span class='highlight green'> The customer is solvent </span></div>"
+        st.markdown(t, unsafe_allow_html=True)
+        st.write("\n")
+        st.write("With a probability of : {}%".format(response["probabilite"]*100))
+    else:
+        t = "<div> <span class='highlight red'> The customer is not solvent </span></div>"
+        st.markdown(t, unsafe_allow_html=True)
+        st.write("\n")
+        st.write("With a probability of : {}%".format(response["probabilite"]*100))
         
     # INTERPRETABILITES
     if st.button("Explain Results"):
