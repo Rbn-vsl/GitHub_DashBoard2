@@ -92,7 +92,7 @@ with st.sidebar:
         st.write("\n")
         st.write("With a probability of : {}%".format(response["probabilite"]*100))
         
-        explainer = st.checkbox('Explain results')
+    explainer = st.checkbox('Explain results')
 
 if explainer:
     with st.spinner('Calculating...'):
