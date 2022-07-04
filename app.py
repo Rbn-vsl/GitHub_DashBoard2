@@ -106,14 +106,14 @@ fig = px.histogram(df, x=positive_feature_list[1], title='Distribution of {}'.fo
 fig.update_layout(bargap=0.2)
 st.plotly_chart(fig, use_container_width=True)      
 st.subheader("Distribution of the 2 variables with most negative contribution to the loan agreement .")
-# fig 1 
-fig = px.histogram(df, x=negative_feature_list[0], title='Distribution of {}'.format(negative_feature_list[0]))
-fig.update_layout(bargap=0.2)
-st.plotly_chart(fig, use_container_width=True)
-# fig 2
-fig = px.histogram(df, x=negative_feature_list[1], title='Distribution of {}'.format(negative_feature_list[1]))
-fig.update_layout(bargap=0.2)
-st.plotly_chart(fig, use_container_width=True)
+# # fig 1 
+# fig = px.histogram(df, x=negative_feature_list[0], title='Distribution of {}'.format(negative_feature_list[0]))
+# fig.update_layout(bargap=0.2)
+# st.plotly_chart(fig, use_container_width=True)
+# # fig 2
+# fig = px.histogram(df, x=negative_feature_list[1], title='Distribution of {}'.format(negative_feature_list[1]))
+# fig.update_layout(bargap=0.2)
+# st.plotly_chart(fig, use_container_width=True)
 
 # *********************************************************************************************************************
 
