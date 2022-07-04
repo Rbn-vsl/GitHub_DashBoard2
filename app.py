@@ -36,7 +36,7 @@ print("User selected the customer_id {}".format(customer_id))
 cwd = os.getcwd()
 name = "X_test_32.pickle"
 df = joblib.load(os.path.join(cwd, name))
-
+# *********************************************************************************************************************
 # PREDICTION
 # using model from api
 if customer_id != None :
@@ -79,15 +79,24 @@ if customer_id != None :
     subheader_text = '''Here are the customer data'''
     st.markdown(f"<h5 style='text-align: center;'>{subheader_text}</h5>", unsafe_allow_html=True)
     st.dataframe(df.iloc[customer_id])
-        
+
     # INTERPRETABILITES
     if st.button("Explain Results"):
         with st.spinner('Calculating...'):
             html = interpretability_list[customer_id].as_html()
             components.html(html, height=800)
 
-
+# PLOT DES VARIABLES DOMINANTES DU CLIENT
 st.subheader("Distribution of the 3 variables with a positive contribution to the loan agreement .")
+positive_contribution_index_list = []
+negative_contribution_index_list = []
+for i in range(len(interpretability_list[customer_id].as_map()[1])):
+    if interpretability_list[customer_id].as_map()[1][i][1] > 0:
+        positive_contribution_index_list.append(interpretability_list[customer_id].as_map()[1][i][0])
+    else:
+        negative_contribution_index_list.append(interpretability_list[customer_id].as_map()[1][i][0])
+positive_feature_list = list(df.iloc[:, positive_contribution_index_list].columns)
+negative_feature_list = list(df.iloc[:, negative_contribution_index_list].columns)
 # fig 1 
 fig = px.histogram(df, x=positive_feature_list[0], title='Distribution of {}'.format(positive_feature_list[0]))
 fig.update_layout(bargap=0.2)
@@ -100,7 +109,9 @@ st.plotly_chart(fig, use_container_width=True)
 fig = px.histogram(df, x=positive_feature_list[2], title='Distribution of {}'.format(positive_feature_list[2]))
 fig.update_layout(bargap=0.2)
 st.plotly_chart(fig, use_container_width=True)         
-            
+
+# *********************************************************************************************************************
+
 st.subheader("Below you can situate customer by plotting distribution.")
 feature_selected = st.selectbox('Select a feature to plot', df.columns)
 st.write('You selected:', feature_selected)
