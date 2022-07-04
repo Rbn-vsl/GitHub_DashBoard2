@@ -31,6 +31,20 @@ interpretability_list = joblib.load(os.path.join(cwd, name))
 name = "X_test_32.pickle"
 df = joblib.load(os.path.join(cwd, name))
 
+
+# Side Bar
+with st.sidebar:
+    streamlite_image = os.path.join(cwd, "streamlite_logo.png")
+    st.image(streamlite_image, width=300)
+    boite_image = os.path.join(cwd, "boite_logo.png")
+    st.image(boite_image, width=300)
+
+    # SELECTION DU CUSTOMER_ID
+    customer_id_list = np.arange(len(interpretability_list))
+    customer_id = st.selectbox('Please select the customer_ID to analyse :', customer_id_list)
+    st.write('You selected:', customer_id)
+    print("User selected the customer_id {}".format(customer_id))
+
 # *********************************************************************************************************************
 # PREDICTION
 # using model from api
@@ -69,20 +83,8 @@ if customer_id != None :
             components.html(html, height=800)
     
     
-# Side Bar
-with st.sidebar:
-    streamlite_image = os.path.join(cwd, "streamlite_logo.png")
-    st.image(streamlite_image, width=300)
-    boite_image = os.path.join(cwd, "boite_logo.png")
-    st.image(boite_image, width=300)
-
-    # SELECTION DU CUSTOMER_ID
-    customer_id_list = np.arange(len(interpretability_list))
-    customer_id = st.selectbox('Please select the customer_ID to analyse :', customer_id_list)
-    st.write('You selected:', customer_id)
-    print("User selected the customer_id {}".format(customer_id))
-    
-    # Response
+ # Response
+ with st.sidebar:   
     if response["solvabilite"] == 0:
         # st.write("The customer is solvent, with a probability of : {}".format(response["probabilite"]))
         t = "<div> <span class='highlight green'> The customer is solvent </span></div>"
@@ -95,7 +97,6 @@ with st.sidebar:
         st.write("\n")
         st.write("With a probability of : {}%".format(response["probabilite"]*100))
     
-
 
 # PLOT DES VARIABLES DOMINANTES DU CLIENT
 # st.subheader("Distribution of the 2 variables with most positive contribution to the loan agreement .")
